@@ -116,6 +116,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v5
 
+      # --- AÑADE ESTE PASO DE LOGIN AQUÍ ---
+      - name: Log in to GitHub Container Registry
+        uses: redhat-actions/podman-login@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
       - name: Build disk images
         id: build
         uses: osbuild/bootc-image-builder-action@main
